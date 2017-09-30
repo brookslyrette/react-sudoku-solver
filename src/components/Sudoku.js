@@ -12,35 +12,35 @@ export default class Sudoku extends Component {
                 <div className="sudoku">
                     <div className="sudoku-row">
                         <div className="sudoku-box">
-                            <Grid x={0} y={0}/>
+                            <Grid x={0} y={0} type={this.props.type}/>
                         </div>
                         <div className="sudoku-box">
-                            <Grid x={0} y={3}/>
+                            <Grid x={0} y={3} type={this.props.type}/>
                         </div>
                         <div className="sudoku-box">
-                            <Grid x={0} y={6}/>
-                        </div>
-                    </div>
-                    <div className="sudoku-row">
-                        <div className="sudoku-box">
-                            <Grid x={3} y={0}/>
-                        </div>
-                        <div className="sudoku-box">
-                            <Grid x={3} y={3}/>
-                        </div>
-                        <div className="sudoku-box">
-                            <Grid x={3} y={6}/>
+                            <Grid x={0} y={6} type={this.props.type}/>
                         </div>
                     </div>
                     <div className="sudoku-row">
                         <div className="sudoku-box">
-                            <Grid x={6} y={0}/>
+                            <Grid x={3} y={0} type={this.props.type}/>
                         </div>
                         <div className="sudoku-box">
-                            <Grid x={6} y={3}/>
+                            <Grid x={3} y={3} type={this.props.type}/>
                         </div>
                         <div className="sudoku-box">
-                            <Grid x={6} y={6}/>
+                            <Grid x={3} y={6} type={this.props.type}/>
+                        </div>
+                    </div>
+                    <div className="sudoku-row">
+                        <div className="sudoku-box">
+                            <Grid x={6} y={0} type={this.props.type}/>
+                        </div>
+                        <div className="sudoku-box">
+                            <Grid x={6} y={3} type={this.props.type}/>
+                        </div>
+                        <div className="sudoku-box">
+                            <Grid x={6} y={6} type={this.props.type}/>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Cell from './Cell';
+import CellContainer from './CellContainer';
 import './Grid.css';
 
 export default class Grid extends Component {
@@ -7,19 +7,19 @@ export default class Grid extends Component {
         return (
             <div className="grid">
                 <div className="grid-row">
-                    <Cell x={this.props.x} y={this.props.y}/>
-                    <Cell x={this.props.x} y={1 +this.props.y}/>
-                    <Cell x={this.props.x} y={2 + this.props.y}/>
+                    <CellContainer x={this.props.x} y={this.props.y} type={this.props.type}/>
+                    <CellContainer x={this.props.x} y={1 +this.props.y} type={this.props.type}/>
+                    <CellContainer x={this.props.x} y={2 + this.props.y} type={this.props.type}/>
                 </div>
                 <div className="grid-row">
-                    <Cell x={1 + this.props.x} y={this.props.y}/>
-                    <Cell x={1 + this.props.x} y={1 + this.props.y}/>
-                    <Cell x={1 + this.props.x} y={2 + this.props.y}/>
+                    <CellContainer x={1 + this.props.x} y={this.props.y} type={this.props.type}/>
+                    <CellContainer x={1 + this.props.x} y={1 + this.props.y} type={this.props.type}/>
+                    <CellContainer x={1 + this.props.x} y={2 + this.props.y} type={this.props.type}/>
                 </div>
                 <div className="grid-row">
-                    <Cell x={2 + this.props.x} y={this.props.y}/>
-                    <Cell x={2 + this.props.x} y={1 + this.props.y}/>
-                    <Cell x={2 + this.props.x} y={2 + this.props.y}/>
+                    <CellContainer x={2 + this.props.x} y={this.props.y} type={this.props.type}/>
+                    <CellContainer x={2 + this.props.x} y={1 + this.props.y} type={this.props.type}/>
+                    <CellContainer x={2 + this.props.x} y={2 + this.props.y} type={this.props.type}/>
                 </div>
             </div>
         )
