@@ -1,0 +1,8 @@
+.grid {
+    display: flex;
+    width: 157px;
+}
+
+.grid-row {
+    flex: 1;
+}

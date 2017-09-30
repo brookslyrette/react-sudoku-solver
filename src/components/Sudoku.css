@@ -1,0 +1,19 @@
+.sudoku {
+    display: flex;
+    flex: 1 100%;
+    border: 2px solid black;
+}
+
+.sudoku-title {
+    font-weight: bold;
+    font-size: 1.6em;
+}
+
+.sudoku-row {
+    flex: 1;
+}
+
+.sudoku-box {
+    flex: 1;
+    border: 1px solid black;
+}

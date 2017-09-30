@@ -1,0 +1,28 @@
+.solver {
+  text-align: center;
+}
+
+.solver-header {
+  background-color: #222;
+  height: 40px;
+  padding: 10px;
+  color: white;
+}
+
+.solver-title {
+  font-size: 1.5em;
+}
+
+.solver-intro {
+  font-size: large;
+}
+
+.solver-board-container {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+}
+
+.solver-board {
+  padding: 10px;
+}
