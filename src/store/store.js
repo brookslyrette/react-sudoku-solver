@@ -1,32 +1,102 @@
 import { createStore } from 'redux';
+import { SET_VALUE, SELECT_CELL } from '../actions/sudokuActions';
+import { isValidBoard, getPeers } from './solverUtils'
 
 let initalState = {
-    'input': [
-        [8, 5, 6, undefined, 1, 4, 7, 3, undefined],
-        [undefined, 9, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
-        [2, 4, undefined, undefined, undefined, undefined, 1, 6, undefined],
-        [undefined, 6, 2, undefined, 5, 9, 3, undefined, undefined],
-        [undefined, 3, 1, 8, undefined, 2, 4, 5, undefined],
-        [undefined, undefined, 5, 3, 4, undefined, 9, 2, undefined],
-        [undefined, 2, 4, undefined, undefined, undefined, undefined, 7, 3],
-        [undefined, undefined, undefined, undefined, undefined, undefined, undefined, 1, undefined],
-        [undefined, 1, 8, 6, 3, undefined, 2, 9, 4],
+    input: [
+        [8, 5, 6, '', 1, 4, 7, 3, ''],
+        ['', 9, '', '', '', '', '', '', ''],
+        [2, 4, '', '', '', '', 1, 6, ''],
+        ['', 6, 2, '', 5, 9, 3, '', ''],
+        ['', 3, 1, 8, '', 2, 4, 5, ''],
+        ['', '', 5, 3, 4, '', 9, 2, ''],
+        ['', 2, 4, '', '', '', '', 7, 3],
+        ['', '', '', '', '', '', '', 1, ''],
+        ['', 1, 8, 6, 3, '', 2, 9, 4],
     ],
-    'output': [
-        [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
-        [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
-        [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
-        [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
-        [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
-        [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
-        [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
-        [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
-        [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+    selection: [
+        [false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false],
+    ],
+    output: [
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', ''],
     ],
 }
 
 function solver(state = initalState, action) {
     switch (action.type) {
+        case SET_VALUE: {
+            // using '' to denote blank cells
+            var newValue = action.payload.value ? action.payload.value : ''
+            // copy state to avoid mutations
+            var nextState = {
+                input: [
+                    [...state.input[0]],
+                    [...state.input[1]],
+                    [...state.input[2]],
+                    [...state.input[3]],
+                    [...state.input[4]],
+                    [...state.input[5]],
+                    [...state.input[6]],
+                    [...state.input[7]],
+                    [...state.input[8]],
+                ],
+                output: [...state.output],
+                selection: [...state.selection],
+            }
+            // add users value
+            nextState.input[action.payload.x][action.payload.y] = newValue
+            // only update board if it is valid
+            if (isValidBoard(nextState.input)) {
+                return {
+                    ...nextState
+                }
+            } else {
+                return {
+                    ...state
+                }
+            }
+        }
+        case SELECT_CELL: {
+            var nextSelectedState = {
+                input: [...state.input],
+                output: [...state.output],
+                selection: [
+                    [...initalState.selection[0]],
+                    [...initalState.selection[1]],
+                    [...initalState.selection[2]],
+                    [...initalState.selection[3]],
+                    [...initalState.selection[4]],
+                    [...initalState.selection[5]],
+                    [...initalState.selection[6]],
+                    [...initalState.selection[7]],
+                    [...initalState.selection[8]],
+                ],
+            }
+            // add selected cell to highlight
+            nextSelectedState.selection[action.payload.x][action.payload.y] = true
+            // highlight all the peers of this cell
+            var peers = getPeers(action.payload.x, action.payload.y)
+            for (var peer of peers) {
+                nextSelectedState.selection[peer.x][peer.y] = true
+            }
+            return nextSelectedState
+        }
         default:
             return state
     }
