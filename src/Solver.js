@@ -15,21 +15,23 @@ class Solver extends Component {
           </header>
           <div className="solver-board-container">
             <div className="solver-board">
-              <Sudoku title="Input" type="input" />
+              <Sudoku title="Puzzle" type="input" />
+            </div>
+            <div className="solver-buttons">
+              <div className="solver-button">
+                <button onClick={() => store.dispatch(solvePuzzle())}>
+                  Solve
+                </button>
+              </div>
+              <div className="solver-button">
+                <button onClick={() => store.dispatch(clearPuzzles())}>
+                  Clear
+                </button>
+              </div>
             </div>
             <div className="solver-board">
               <Sudoku title="Solution" type="output" />
             </div>
-          </div>
-          <div>
-            <button onClick={() => store.dispatch(solvePuzzle())}>
-              Solve!
-            </button>
-          </div>
-          <div>
-            <button onClick={() => store.dispatch(clearPuzzles())}>
-              Clear
-            </button>
           </div>
         </div>
       </Provider>

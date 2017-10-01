@@ -1,3 +1,10 @@
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
 .solver {
   text-align: center;
 }
@@ -20,9 +27,31 @@
 .solver-board-container {
   display: flex;
   padding: 10px;
-  justify-content: center;
+  justify-content: center;  
 }
 
 .solver-board {
   padding: 10px;
+}
+
+.solver-buttons {
+  display: flex;
+  flex-direction: column;
+  margin: auto 15px;
+}
+
+.solver-button {
+  padding: 5px;
+}
+
+.solver-button button {
+  min-width: 120px;
+  height: 30px;
+  border-radius: 12px;
+  border: 1px solid #7a7a7a;
+  background-color: #ededed;
+}
+
+.solver-button button:active {
+  background-color: #fff;
 }
