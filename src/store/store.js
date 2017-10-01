@@ -1,8 +1,9 @@
 import { createStore } from 'redux';
-import { SET_VALUE, SELECT_CELL } from '../actions/sudokuActions';
-import { isValidBoard, getPeers } from './solverUtils'
+import { SET_VALUE, SELECT_CELL, SOLVE_PUZZLE } from '../actions/sudokuActions';
+import { isValidBoard, getPeers, solve } from './solverUtils'
 
 let initalState = {
+    // state of the input board
     input: [
         [8, 5, 6, '', 1, 4, 7, 3, ''],
         ['', 9, '', '', '', '', '', '', ''],
@@ -14,6 +15,7 @@ let initalState = {
         ['', '', '', '', '', '', '', 1, ''],
         ['', 1, 8, 6, 3, '', 2, 9, 4],
     ],
+    // selection state for all suqares. This is used to provide peer highlighting
     selection: [
         [false, false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false, false],
@@ -25,6 +27,7 @@ let initalState = {
         [false, false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false, false],
     ],
+    // the solution board
     output: [
         ['', '', '', '', '', '', '', '', ''],
         ['', '', '', '', '', '', '', '', ''],
@@ -96,6 +99,15 @@ function solver(state = initalState, action) {
                 nextSelectedState.selection[peer.x][peer.y] = true
             }
             return nextSelectedState
+        }
+        case SOLVE_PUZZLE: {
+            var output = solve(state.input)
+            var solvedState = {
+                input: [...state.input],
+                output,
+                selection: [...state.selection]
+            }
+            return solvedState
         }
         default:
             return state
