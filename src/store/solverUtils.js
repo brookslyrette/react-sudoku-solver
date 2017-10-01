@@ -169,7 +169,7 @@ export function solve(sudoku) {
             puzzle[x][y] = newValue
         }
 
-        if (!isValidBoard(puzzle)) {
+        if (!isCellValid(x, y, puzzle)) {
             i = i - 1 // this new square value is not valid
             continue
         }
