@@ -15,7 +15,7 @@ let initalState = {
         ['', '', '', '', '', '', '', 1, ''],
         ['', 1, 8, 6, 3, '', 2, 9, 4],
     ],
-    // selection state for all squares. This is used to provide peer highlighting.
+    // highlight state for all squares. This is used to provide peer highlighting.
     highlight: [
         [false, false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false, false],
@@ -60,7 +60,17 @@ function solver(state = initalState, action) {
                     [...state.input[7]],
                     [...state.input[8]],
                 ],
-                output: [...state.output],
+                output: [
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                ],
                 highlight: [...state.highlight],
             }
             // add users value
@@ -77,6 +87,7 @@ function solver(state = initalState, action) {
             }
         }
         case SELECT_CELL: {
+            // copy state to avoid mutations
             var nextSelectedState = {
                 input: [...state.input],
                 output: [...state.output],
