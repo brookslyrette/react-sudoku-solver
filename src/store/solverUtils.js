@@ -140,6 +140,22 @@ export function solve(sudoku) {
             if (newValue >= 10) {
                 puzzle[x][y] = ''
                 i = i - 2 // go back to previous square
+                if (i === -1) {
+                    // We have now backtracked past the last cell we can change.
+                    // This means there are no possible solutions to this puzzle.
+                    alert('Input is a unsolvable puzzle.')
+                    return [
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', ''],
+                    ]
+                }
                 continue
             }
             puzzle[x][y] = newValue
