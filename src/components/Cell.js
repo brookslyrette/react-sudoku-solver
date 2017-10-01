@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './Cell.css';
 
+/**
+ * Renders a single cell on a sudoku board.
+ */
 export default class Cell extends Component {
     constructor(props) {
         super(props)
@@ -10,7 +13,11 @@ export default class Cell extends Component {
     }
 
     handleChange(event) {
-        this.props.setValue(event.target.value);
+        let { value } = event.target
+        // only numbers are valid input
+        if (!isNaN(value)) {
+            this.props.setValue(Number(value));
+        }
     }
 
     handleOnFocus(event) {
@@ -23,7 +30,7 @@ export default class Cell extends Component {
                 disabled={this.props.disabled}
                 onFocus={this.handleOnFocus} 
                 onChange={this.handleChange} 
-                className={this.props.selected ? 'cell-selected' : 'cell'} 
+                className={this.props.highlighted ? 'cell-highlighted' : 'cell'} 
                 value={this.props.value} />            
         )
     }

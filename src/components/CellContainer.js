@@ -3,14 +3,14 @@ import { setValue, selectCell } from '../actions/sudokuActions.js'
 import Cell from './Cell'
 
 const mapStateToProps = (state, ownProps) => {
-    var selected = false
+    var highlighted = false
     // only highlight the input sudoku
-    if (ownProps.type === 'input' && state['selection'][ownProps.y][ownProps.x]) {
-        selected = true
+    if (ownProps.type === 'input' && state['highlight'][ownProps.y][ownProps.x]) {
+        highlighted = true
     }
      return {
         value: state[ownProps.type][ownProps.y][ownProps.x],
-        selected: selected,
+        highlighted,
         disabled: ownProps.type !== 'input'
     }
 }
@@ -22,6 +22,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 }
 
+/**
+ * Maps redux app state to cell.
+ */
 const CellContainer = connect(
     mapStateToProps,
     mapDispatchToProps

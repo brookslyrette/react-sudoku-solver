@@ -1,38 +1,14 @@
 const VALID_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-/**
- * Validates that a board is valid
- * @param sudoku a 2d array of a sudoku board
- */
-export function isValidBoard(sudoku) {
-    // check for invalid inputs
-    for (var i = 0; i < 9; i++) {
-        for (var j = 0; j < 9; j++) {
-            let value = sudoku[j][i]
-            // empty string denotes empty cells
-            if (value === '') {
-                continue;
-            }
-            // invalid if the value is not a number
-            if (isNaN(value)) {
-                return false;
-            }
-
-            // check to see if it's a valid number
-            if (value < 1 || value > 9) {
-                return false
-            }
-        }
+export function isValidValue(value) {
+    // empty string denotes empty cells
+    if (value === '') {
+        return true
     }
-    // validate each cells peers
-    for (var x = 0; x < 9; x++) {
-        for (var y = 0; y < 9; y++) {
-            if (!isCellValid(x, y, sudoku)) {
-                return false
-            }
-        }
+    if (isNaN(value)) {
+        return false;
     }
-    return true
+    return VALID_VALUES.indexOf(value) !== -1
 }
 
 /**
@@ -43,7 +19,7 @@ export function isValidBoard(sudoku) {
  * @param y index of the cell being checked
  * @param sudoku the board being checked
  */
-function isCellValid(x, y, sudoku) {
+export function isCellValid(x, y, sudoku) {
     var value = sudoku[x][y]
     // empty cells are always valid
     if (value === '') {
@@ -52,7 +28,7 @@ function isCellValid(x, y, sudoku) {
     // check peer list for this value being used else where
     let peers = getPeers(x, y)
     for(var peer of peers) {
-        if (sudoku[peer.x][peer.y] == value) {
+        if (sudoku[peer.x][peer.y] === value) {
             return false
         }
     }

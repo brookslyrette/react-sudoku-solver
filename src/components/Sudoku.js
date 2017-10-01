@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Grid from './Grid';
 import './Sudoku.css';
 
+/**
+ * Represents a 9x9 sudoku board.
+ */
 export default class Sudoku extends Component {
     render() {
         return (

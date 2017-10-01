@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 import { SET_VALUE, SELECT_CELL, SOLVE_PUZZLE, CLEAR_PUZZLES } from '../actions/sudokuActions';
-import { isValidBoard, getPeers, solve } from './solverUtils'
+import { isValidValue, isCellValid, getPeers, solve } from './solverUtils'
 
 let initalState = {
     // state of the input board
@@ -15,8 +15,8 @@ let initalState = {
         ['', '', '', '', '', '', '', 1, ''],
         ['', 1, 8, 6, 3, '', 2, 9, 4],
     ],
-    // selection state for all suqares. This is used to provide peer highlighting
-    selection: [
+    // selection state for all squares. This is used to provide peer highlighting.
+    highlight: [
         [false, false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false, false],
@@ -44,6 +44,7 @@ let initalState = {
 function solver(state = initalState, action) {
     switch (action.type) {
         case SET_VALUE: {
+            var { x, y } = action.payload
             // using '' to denote blank cells
             var newValue = action.payload.value ? action.payload.value : ''
             // copy state to avoid mutations
@@ -60,12 +61,12 @@ function solver(state = initalState, action) {
                     [...state.input[8]],
                 ],
                 output: [...state.output],
-                selection: [...state.selection],
+                highlight: [...state.highlight],
             }
             // add users value
-            nextState.input[action.payload.x][action.payload.y] = newValue
+            nextState.input[x][y] = newValue
             // only update board if it is valid
-            if (isValidBoard(nextState.input)) {
+            if (isValidValue(newValue) && isCellValid(x, y, nextState.input)) {
                 return {
                     ...nextState
                 }
@@ -79,24 +80,24 @@ function solver(state = initalState, action) {
             var nextSelectedState = {
                 input: [...state.input],
                 output: [...state.output],
-                selection: [
-                    [...initalState.selection[0]],
-                    [...initalState.selection[1]],
-                    [...initalState.selection[2]],
-                    [...initalState.selection[3]],
-                    [...initalState.selection[4]],
-                    [...initalState.selection[5]],
-                    [...initalState.selection[6]],
-                    [...initalState.selection[7]],
-                    [...initalState.selection[8]],
+                highlight: [
+                    [...initalState.highlight[0]],
+                    [...initalState.highlight[1]],
+                    [...initalState.highlight[2]],
+                    [...initalState.highlight[3]],
+                    [...initalState.highlight[4]],
+                    [...initalState.highlight[5]],
+                    [...initalState.highlight[6]],
+                    [...initalState.highlight[7]],
+                    [...initalState.highlight[8]],
                 ],
             }
             // add selected cell to highlight
-            nextSelectedState.selection[action.payload.x][action.payload.y] = true
+            nextSelectedState.highlight[action.payload.x][action.payload.y] = true
             // highlight all the peers of this cell
             var peers = getPeers(action.payload.x, action.payload.y)
             for (var peer of peers) {
-                nextSelectedState.selection[peer.x][peer.y] = true
+                nextSelectedState.highlight[peer.x][peer.y] = true
             }
             return nextSelectedState
         }
@@ -105,12 +106,12 @@ function solver(state = initalState, action) {
             var solvedState = {
                 input: [...state.input],
                 output,
-                selection: [...state.selection]
+                highlight: [...state.highlight]
             }
             return solvedState
         }
         case CLEAR_PUZZLES: {
-            var solvedState = {
+            var clearedState = {
                 input: [
                     ['', '', '', '', '', '', '', '', ''],
                     ['', '', '', '', '', '', '', '', ''],
@@ -133,9 +134,9 @@ function solver(state = initalState, action) {
                     ['', '', '', '', '', '', '', '', ''],
                     ['', '', '', '', '', '', '', '', ''],
                 ],
-                selection: [...initalState.selection]
+                highlight: [...initalState.highlight]
             }
-            return solvedState
+            return clearedState
         }
         default:
             return state

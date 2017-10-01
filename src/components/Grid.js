@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import CellContainer from './CellContainer';
 import './Grid.css';
 
+/**
+ * Represents one 3x3 grid of a sudoku board.
+ */
 export default class Grid extends Component {
     render() {
         return (
