@@ -28,7 +28,7 @@ class Solver extends Component {
           </div>
           <div>
             <button onClick={() => store.dispatch(clearPuzzles())}>
-              Clear Boards
+              Clear
             </button>
           </div>
         </div>
