@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux'
 import store from './store/store';
 import Sudoku from './components/Sudoku';
-import { solvePuzzle } from './actions/sudokuActions'
+import { solvePuzzle, clearPuzzles } from './actions/sudokuActions'
 import './Solver.css';
 
 class Solver extends Component {
@@ -24,6 +24,11 @@ class Solver extends Component {
           <div>
             <button onClick={() => store.dispatch(solvePuzzle())}>
               Solve!
+            </button>
+          </div>
+          <div>
+            <button onClick={() => store.dispatch(clearPuzzles())}>
+              Clear Boards
             </button>
           </div>
         </div>

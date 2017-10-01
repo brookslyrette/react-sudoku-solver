@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import { SET_VALUE, SELECT_CELL, SOLVE_PUZZLE } from '../actions/sudokuActions';
+import { SET_VALUE, SELECT_CELL, SOLVE_PUZZLE, CLEAR_PUZZLES } from '../actions/sudokuActions';
 import { isValidBoard, getPeers, solve } from './solverUtils'
 
 let initalState = {
@@ -106,6 +106,34 @@ function solver(state = initalState, action) {
                 input: [...state.input],
                 output,
                 selection: [...state.selection]
+            }
+            return solvedState
+        }
+        case CLEAR_PUZZLES: {
+            var solvedState = {
+                input: [
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                ],
+                output: [
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', '', ''],
+                ],
+                selection: [...initalState.selection]
             }
             return solvedState
         }
