@@ -1,7 +1,12 @@
 # Sudoku Solver
 
+<p float="left">
+<img width="600" alt="screen shot 2017-10-02 at 7 11 33 pm" src="https://user-images.githubusercontent.com/1881100/31103733-931a386a-a7a6-11e7-922e-3f60f61b9deb.png">
+<img width="600" alt="screen shot 2017-10-02 at 7 11 44 pm" src="https://user-images.githubusercontent.com/1881100/31103734-93298ffe-a7a6-11e7-8dcc-b0fdabf4f72a.png">
+</p>
+
 ## Dependencies
-To run the solver you'll need `react-create-app` and `yarn` installed. 
+To run the solver you'll need `yarn` installed. 
 
 ## Starting the app
 ```
@@ -14,7 +19,7 @@ yarn run
 ### Setting values
 The left side sudoku board is editable. Click on any row to edit it's value. After clicking on a row all its peers will be highlighted. 
 
-*Note: Cells will only select valid inputs. You will not be able to set a cell to a value that is used in its peer cells.*
+*Note: Cells will only allow valid inputs. You will not be able to set a cell to a value that is used in its peer cells.*
 
 ### Solving
 This app takes a two part approach to solving a sudoku. Hit 'solve' to have the application solve the inputted puzzle.
