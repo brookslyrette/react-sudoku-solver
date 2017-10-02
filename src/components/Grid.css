@@ -1,8 +1,7 @@
-.grid {
-    display: flex;
-    width: 159px;
+.grid {   
+    width: 162px; 
 }
 
 .grid-row {
-    flex: 1;
+    width: 162px; 
 }

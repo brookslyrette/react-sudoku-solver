@@ -5,11 +5,11 @@ import Cell from './Cell'
 const mapStateToProps = (state, ownProps) => {
     var highlighted = false
     // only highlight the input sudoku
-    if (ownProps.type === 'input' && state['highlight'][ownProps.y][ownProps.x]) {
+    if (ownProps.type === 'input' && state['highlight'][ownProps.x][ownProps.y]) {
         highlighted = true
     }
      return {
-        value: state[ownProps.type][ownProps.y][ownProps.x],
+        value: state[ownProps.type][ownProps.x][ownProps.y],
         highlighted,
         disabled: ownProps.type !== 'input'
     }
@@ -17,8 +17,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        setValue: (value) => dispatch(setValue(ownProps.y, ownProps.x, value)),
-        selectCell: () => dispatch(selectCell(ownProps.y, ownProps.x)),
+        setValue: (value) => dispatch(setValue(ownProps.x, ownProps.y, value)),
+        selectCell: () => dispatch(selectCell(ownProps.x, ownProps.y)),
     }
 }
 

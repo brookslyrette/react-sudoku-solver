@@ -1,5 +1,6 @@
 .sudoku {
     display: flex;
+    flex-direction: column;
     flex: 1 100%;
     border: 2px solid black;
 }
@@ -11,6 +12,7 @@
 
 .sudoku-row {
     flex: 1;
+    display: flex;
 }
 
 .sudoku-box {
