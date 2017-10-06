@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CellContainer from './CellContainer';
+import CellContainer from '../containers/CellContainer';
 import './Grid.css';
 
 /**

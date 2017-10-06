@@ -13,7 +13,7 @@ export default class Cell extends Component {
     }
 
     handleChange(event) {
-        let { value } = event.target
+        const { value } = event.target
         // only numbers are valid input
         if (!isNaN(value)) {
             this.props.setValue(Number(value));

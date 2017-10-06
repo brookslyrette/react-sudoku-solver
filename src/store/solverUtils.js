@@ -20,14 +20,14 @@ export function isValidValue(value) {
  * @param sudoku the board being checked
  */
 export function isCellValid(x, y, sudoku) {
-    var value = sudoku[x][y]
+    const value = sudoku[x][y]
     // empty cells are always valid
     if (value === '') {
         return true
     }
     // check peer list for this value being used else where
-    let peers = getPeers(x, y)
-    for(var peer of peers) {
+    const peers = getPeers(x, y)
+    for(const peer of peers) {
         if (sudoku[peer.x][peer.y] === value) {
             return false
         }
@@ -43,9 +43,9 @@ export function isCellValid(x, y, sudoku) {
  * @param int y 
  */
 export function getPeers(x, y) {
-    var peers = []
+    let peers = []
     // add all y's and x's 
-    for(var k = 0; k < 9; k++) {
+    for(let k = 0; k < 9; k++) {
         if (k !== x) {
             peers.push({
                 x: k,
@@ -60,10 +60,10 @@ export function getPeers(x, y) {
         }
     }
     // add the items in the same grid
-    var topLeftY = y - y % 3
-    var topLeftX = x - x % 3
-    for(var i = topLeftX; i < topLeftX + 3; i++) {
-        for(var j = topLeftY; j < topLeftY + 3; j++) {
+    const topLeftY = y - y % 3
+    const topLeftX = x - x % 3
+    for(let i = topLeftX; i < topLeftX + 3; i++) {
+        for(let j = topLeftY; j < topLeftY + 3; j++) {
             if (j === y && i === x) {
                 continue
             } 
@@ -82,7 +82,7 @@ export function getPeers(x, y) {
  */
 export function solve(sudoku) {
     // copy input
-    var puzzle = [
+    let puzzle = [
         [...sudoku[0]],
         [...sudoku[1]],
         [...sudoku[2]],
@@ -94,28 +94,28 @@ export function solve(sudoku) {
         [...sudoku[8]],
     ]
 
-    var cycleImprovedAnswer = true
-    var remainingCells = []
+    let cycleImprovedAnswer = true
+    let remainingCells = []
     while (cycleImprovedAnswer) {
         cycleImprovedAnswer = false
         remainingCells = []
         // do a cycle and look for cells where their is only one possible value
-        for (var x = 0; x < 9; x++) {
-            for (var y = 0; y < 9; y++) {
-                let value = puzzle[x][y]
+        for (let x = 0; x < 9; x++) {
+            for (let y = 0; y < 9; y++) {
+                const value = puzzle[x][y]
                 if (value) {
                     continue // this cell is populated, skip to the next
                 }
 
                 // get list of values in all peers
-                let peers = getPeers(x, y)
+                const peers = getPeers(x, y)
                 let usedValues = []
                 for (var peer of peers) {
                     usedValues.push(puzzle[peer.x][peer.y])
                 }
 
                 // see what possibile values remain
-                var possibleValues = VALID_VALUES.filter(value => usedValues.indexOf(value) === -1)
+                const possibleValues = VALID_VALUES.filter(value => usedValues.indexOf(value) === -1)
                 if (possibleValues.length === 1) {
                     puzzle[x][y] = possibleValues[0]
                     cycleImprovedAnswer = true
@@ -130,13 +130,13 @@ export function solve(sudoku) {
     }
     
     // now use brute force to solve the remaining ambiguous cells
-    for (var i = 0; i < remainingCells.length; i++) {
-        let { x, y } = remainingCells[i]
-        let value = puzzle[x][y]
+    for (let i = 0; i < remainingCells.length; i++) {
+        const { x, y } = remainingCells[i]
+        const value = puzzle[x][y]
         if (!value) {
             puzzle[x][y] = 1
         } else {
-            var newValue = puzzle[x][y] + 1
+            const newValue = puzzle[x][y] + 1
             if (newValue >= 10) {
                 puzzle[x][y] = ''
                 i = i - 2 // go back to previous square

@@ -44,11 +44,11 @@ let initalState = {
 function solver(state = initalState, action) {
     switch (action.type) {
         case SET_VALUE: {
-            var { x, y } = action.payload
+            const { x, y } = action.payload
             // using '' to denote blank cells
-            var newValue = action.payload.value ? action.payload.value : ''
+            const newValue = action.payload.value ? action.payload.value : ''
             // copy state to avoid mutations
-            var nextState = {
+            let nextState = {
                 input: [
                     [...state.input[0]],
                     [...state.input[1]],
@@ -88,7 +88,7 @@ function solver(state = initalState, action) {
         }
         case SELECT_CELL: {
             // copy state to avoid mutations
-            var nextSelectedState = {
+            let nextSelectedState = {
                 input: [...state.input],
                 output: [...state.output],
                 highlight: [
@@ -106,15 +106,15 @@ function solver(state = initalState, action) {
             // add selected cell to highlight
             nextSelectedState.highlight[action.payload.x][action.payload.y] = true
             // highlight all the peers of this cell
-            var peers = getPeers(action.payload.x, action.payload.y)
-            for (var peer of peers) {
+            const peers = getPeers(action.payload.x, action.payload.y)
+            for (const peer of peers) {
                 nextSelectedState.highlight[peer.x][peer.y] = true
             }
             return nextSelectedState
         }
         case SOLVE_PUZZLE: {
-            var output = solve(state.input)
-            var solvedState = {
+            const output = solve(state.input)
+            const solvedState = {
                 input: [...state.input],
                 output,
                 highlight: [...state.highlight]
@@ -122,7 +122,7 @@ function solver(state = initalState, action) {
             return solvedState
         }
         case CLEAR_PUZZLES: {
-            var clearedState = {
+            const clearedState = {
                 input: [
                     ['', '', '', '', '', '', '', '', ''],
                     ['', '', '', '', '', '', '', '', ''],

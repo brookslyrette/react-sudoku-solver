@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import { setValue, selectCell } from '../actions/sudokuActions.js'
-import Cell from './Cell'
+import Cell from '../components/Cell'
 
 const mapStateToProps = (state, ownProps) => {
-    var highlighted = false
+    let highlighted = false
     // only highlight the input sudoku
     if (ownProps.type === 'input' && state['highlight'][ownProps.x][ownProps.y]) {
         highlighted = true
