@@ -2,6 +2,7 @@
   "name": "sudoku-solver",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://brookslyrette.github.io/react-sudoku-solver/",
   "dependencies": {
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
