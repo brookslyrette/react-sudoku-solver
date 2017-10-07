@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Cell /> renders empty 1`] = `
+<input
+  className="cell"
+  disabled={undefined}
+  onChange={[Function]}
+  onFocus={[Function]}
+  value={undefined}
+/>
+`;
+
+exports[`<Cell /> renders highlighted 1`] = `
+<input
+  className="cell-highlighted"
+  disabled={undefined}
+  onChange={[Function]}
+  onFocus={[Function]}
+  value={undefined}
+/>
+`;

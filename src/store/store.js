@@ -2,7 +2,7 @@ import { createStore } from 'redux';
 import { SET_VALUE, SELECT_CELL, SOLVE_PUZZLE, CLEAR_PUZZLES } from '../actions/sudokuActions';
 import { isValidValue, isCellValid, getPeers, solve } from './solverUtils'
 
-let initalState = {
+export let initalState = {
     // state of the input board
     input: [
         [8, 5, 6, '', 1, 4, 7, 3, ''],
@@ -41,7 +41,7 @@ let initalState = {
     ],
 }
 
-function solver(state = initalState, action) {
+export function solver(state = initalState, action) {
     switch (action.type) {
         case SET_VALUE: {
             const { x, y } = action.payload
