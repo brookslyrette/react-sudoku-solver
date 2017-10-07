@@ -1,5 +1,10 @@
 # Sudoku Solver
 
+[![Build Status](https://travis-ci.org/brookslyrette/react-sudoku-solver.svg?branch=master)](https://travis-ci.org/brookslyrette/react-sudoku-solver)
+[![Coverage Status](https://coveralls.io/repos/github/brookslyrette/react-sudoku-solver/badge.svg?branch=master)](https://coveralls.io/github/brookslyrette/react-sudoku-solver?branch=master)
+
+Live Version https://brookslyrette.github.io/react-sudoku-solver/
+
 <p float="left">
 <img width="600" alt="screen shot 2017-10-02 at 7 11 33 pm" src="https://user-images.githubusercontent.com/1881100/31103733-931a386a-a7a6-11e7-922e-3f60f61b9deb.png">
 <img width="600" alt="screen shot 2017-10-02 at 7 11 44 pm" src="https://user-images.githubusercontent.com/1881100/31103734-93298ffe-a7a6-11e7-8dcc-b0fdabf4f72a.png">
