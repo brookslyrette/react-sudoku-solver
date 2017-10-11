@@ -12,10 +12,10 @@ export function isValidValue(value) {
 }
 
 /**
- * Validates that a cell contains a valid value that is not 
- * used in it's peers. 
- * 
- * @param x index of the cell being checked 
+ * Validates that a cell contains a valid value that is not
+ * used in it's peers.
+ *
+ * @param x index of the cell being checked
  * @param y index of the cell being checked
  * @param sudoku the board being checked
  */
@@ -36,15 +36,15 @@ export function isCellValid(x, y, sudoku) {
 }
 
 /**
- * Returns the list of cells that are peers to this cell. 
- * This includes all cells in same row and column as well as 
- * the cells in the same grid. 
- * @param int x 
- * @param int y 
+ * Returns the list of cells that are peers to this cell.
+ * This includes all cells in same row and column as well as
+ * the cells in the same grid.
+ * @param int x
+ * @param int y
  */
 export function getPeers(x, y) {
     let peers = []
-    // add all y's and x's 
+    // add all y's and x's
     for(let k = 0; k < 9; k++) {
         if (k !== x) {
             peers.push({
@@ -55,7 +55,7 @@ export function getPeers(x, y) {
         if (k !== y) {
             peers.push({
                 x,
-                y: k, 
+                y: k,
             })
         }
     }
@@ -66,10 +66,10 @@ export function getPeers(x, y) {
         for(let j = topLeftY; j < topLeftY + 3; j++) {
             if (j === y && i === x) {
                 continue
-            } 
+            }
             peers.push({
                 x: i,
-                y: j, 
+                y: j,
             })
         }
     }
@@ -77,7 +77,7 @@ export function getPeers(x, y) {
 }
 
 /**
- * Solves a sudoku puzzle. 
+ * Solves a sudoku puzzle.
  * @param sudoku the puzzle to be solved
  */
 export function solve(sudoku) {
@@ -119,30 +119,7 @@ export function solve(sudoku) {
                 if (possibleValues.length === 1) {
                     puzzle[x][y] = possibleValues[0]
                     cycleImprovedAnswer = true
-                } else {
-                    remainingCells.push({
-                        x,
-                        y,
-                    })
-                }
-            }
-        }
-    }
-    
-    // now use brute force to solve the remaining ambiguous cells
-    for (let i = 0; i < remainingCells.length; i++) {
-        const { x, y } = remainingCells[i]
-        const value = puzzle[x][y]
-        if (!value) {
-            puzzle[x][y] = 1
-        } else {
-            const newValue = puzzle[x][y] + 1
-            if (newValue >= 10) {
-                puzzle[x][y] = ''
-                i = i - 2 // go back to previous square
-                if (i === -1) {
-                    // We have now backtracked past the last cell we can change.
-                    // This means there are no possible solutions to this puzzle.
+                } else if (possibleValues.length === 0) {
                     alert('Input is a unsolvable puzzle.')
                     return [
                         ['', '', '', '', '', '', '', '', ''],
@@ -155,12 +132,35 @@ export function solve(sudoku) {
                         ['', '', '', '', '', '', '', '', ''],
                         ['', '', '', '', '', '', '', '', ''],
                     ]
+                } else {
+                    remainingCells.push({
+                        x,
+                        y,
+                        possibleValues
+                    })
                 }
+            }
+        }
+    }
+
+    // Now use brute force to solve the remaining ambiguous cells.
+    // Use the list of possible values from the peer evaluation to limit the search space.
+    for (let i = 0; i < remainingCells.length; i++) {
+        const { x, y, possibleValues } = remainingCells[i]
+        let value = puzzle[x][y]
+        if (!value) {
+            value = possibleValues[0]
+        } else {
+            const indexOfCurrentValue = possibleValues.indexOf(value)
+            if (indexOfCurrentValue >= possibleValues.length - 1) {
+                // We are out of values for this cell backtrack on cell
+                puzzle[x][y] = ''
+                i = i - 2
                 continue
             }
-            puzzle[x][y] = newValue
+            value = possibleValues[indexOfCurrentValue + 1]
         }
-
+        puzzle[x][y] = value
         if (!isCellValid(x, y, puzzle)) {
             i = i - 1 // this new square value is not valid
             continue
