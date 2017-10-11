@@ -1,7 +1,3 @@
-.grid {   
-    width: 162px; 
-}
-
-.grid-row {
-    width: 162px; 
+.grid {
+    min-width: 162px;
 }
